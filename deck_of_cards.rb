@@ -23,7 +23,7 @@ class Deck
   def generate_cards
     cards = []
     suits = [:diamonds, :hearts, :spades, :clubs]
-    ranks = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King']
+    ranks = ['Ace', *(2..10), 'Jack', 'Queen', 'King']
 
     suits.map { |suit| ranks.map { |rank| cards << Card.new(rank, suit) } }
     return cards
