@@ -23,7 +23,7 @@ class Image
   end
 
   def output_image
-    puts @rows.collect { |row| row.join }
+    @rows.each { |row| puts row.join }
   end
 end
 
