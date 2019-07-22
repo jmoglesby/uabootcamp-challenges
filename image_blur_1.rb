@@ -11,6 +11,7 @@ class Image
       else
         row_length = row.count
         unless first_row_length == row_length
+          # ideally, would throw an error and abort here
           puts "All rows are not the same length!"
         end
       end
@@ -22,11 +23,7 @@ class Image
   end
 
   def output_image
-    output = ""
-    @rows.each do |row|
-      output += row.join + "\n"
-    end
-    puts output
+    puts @rows.collect { |row| row.join + "\n" }
   end
 end
 
