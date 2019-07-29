@@ -23,7 +23,7 @@ class Image
   end
 
   def output_image
-    @rows.each { |row| puts row.join }
+    @rows.each { |row| puts row.join(" ") }
   end
   
   def blur
