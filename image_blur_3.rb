@@ -1,5 +1,6 @@
 class Image
   attr_accessor :rows, :height, :length
+
   def initialize rows
     @rows = rows
     @height = rows.count
@@ -20,10 +21,12 @@ class Image
     @length = row_lengths / rows.count
   end
 
+
   def output_image
     @rows.each { |row| puts row.join(" ") }
   end
   
+
   def blur distance
     fail "Distance supplied must be an integer!" unless distance.class == Integer
 
@@ -36,8 +39,6 @@ class Image
       end
     end
 
-    
-
     ones.each do |one_pixel|
       @rows.each_with_index do |row, i|
         row.each_with_index do |column, j|
@@ -48,6 +49,7 @@ class Image
       end
     end
   end
+  
 end
 
 
