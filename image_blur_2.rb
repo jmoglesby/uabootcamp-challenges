@@ -28,30 +28,22 @@ class Image
   
   def blur
     ones = []
-    @rows.each_with_index do |arr, i|
-      arr.each_with_index do |x, j|
-        if x == 1
+    @rows.each_with_index do |row, i|
+      row.each_with_index do |column, j|
+        if column == 1
           ones << [i, j]
         end
       end
     end
 
-    ones.each do |spot|
-      if @rows[(spot[0]-1).abs][spot[1]]
-        @rows[(spot[0]-1).abs][spot[1]] = 1
-      end #blur spot above
-      
-      if @rows[spot[0]+1] && @rows[spot[0]+1][spot[1]]
-        @rows[spot[0]+1][spot[1]] = 1
-      end #blur spot below
-
-      if @rows[spot[0]][(spot[1]-1).abs]
-        @rows[spot[0]][(spot[1]-1).abs] = 1
-      end #blur spot left
-
-      if @rows[spot[0]][spot[1]+1]
-        @rows[spot[0]][spot[1]+1] = 1
-      end #blur spot right
+    ones.each do |pixel|
+      @rows.each_with_index do |row, i|
+        row.each_with_index do |column, j|
+          if ((i - pixel[0]).abs + (j - pixel[1]).abs) <= 1
+            @rows[i][j] = 1 if @rows[i][j]
+          end
+        end
+      end
     end
   end
 end
@@ -62,8 +54,8 @@ end
 image = Image.new([
   [0, 0, 0, 0],
   [0, 1, 0, 0],
-  [0, 0, 1, 0],
-  [0, 0, 0, 0]
+  [0, 0, 0, 0],
+  [0, 0, 0, 1]
 ])
 
 puts "Image:"
