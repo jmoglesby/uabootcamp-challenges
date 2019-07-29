@@ -27,7 +27,7 @@ class Image
   end
   
 
-  def blur distance
+  def blur distance=1
     fail "Distance supplied must be an integer!" unless distance.class == Integer
 
     ones = []
@@ -49,7 +49,7 @@ class Image
       end
     end
   end
-  
+
 end
 
 
@@ -70,3 +70,19 @@ image.output_image
 image.blur(3)
 puts "\n\nBlurred Image:"
 image.output_image
+
+image2 = Image.new([
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+])
+
+puts "\n\n\nImage2:"
+image2.output_image
+image2.blur
+puts "\n\nBlurred Image2:"
+image2.output_image
