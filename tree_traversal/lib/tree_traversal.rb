@@ -8,19 +8,18 @@ module TreeTraversal
     res = 'nothing'
     puts hash[:payload]
     puts hash[:node].payload
-    puts hash[:node].inspect
     if hash[:payload] == hash[:node].payload # this failed to return true at node 2>7>6>5
       puts "inside if: "
-      puts hash[:node]
       res = hash[:node]
-      puts "res equals: #{res}"
+      puts "res equals: #{res.inspect}"
+      return res
 
     elsif hash[:node].children.count.zero? || all_children_checked(hash)
       # climb tree
       puts "inside elsif: "
       hash[:checked] << hash[:node]
       hash[:node] = hash[:path].pop
-      puts hash
+      puts hash[:node].inspect
       dive(hash)
 
     else
@@ -33,13 +32,12 @@ module TreeTraversal
           i += 1
         else
           hash[:node] = hash[:node].children[i]
-          puts hash
           dive(hash)
         end
       end
     end
-    puts "now res equals: #{res}"
-    return res
+    puts "now res equals: #{res.inspect}"
+    # return res
   end
 
 
