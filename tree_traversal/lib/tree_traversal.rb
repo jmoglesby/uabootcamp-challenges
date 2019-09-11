@@ -1,22 +1,30 @@
 module TreeTraversal
   def self.depth_first(payload, origin)
     traversal_hash = { payload: payload, node: origin, path: [], checked: [] }
-    res = dive(traversal_hash)
-    res || 'Payload not found.'
+    dive(traversal_hash)
   end
 
   def self.dive(hash)
+    res = 'nothing'
     puts hash[:payload]
     puts hash[:node].payload
-    if hash[:payload].to_i == hash[:node].payload.to_i # this failed to return true at node 2>7>6>5
-      return hash[:node]
+    puts hash[:node].inspect
+    if hash[:payload] == hash[:node].payload # this failed to return true at node 2>7>6>5
+      puts "inside if: "
+      puts hash[:node]
+      res = hash[:node]
+      puts "res equals: #{res}"
+
     elsif hash[:node].children.count.zero? || all_children_checked(hash)
       # climb tree
+      puts "inside elsif: "
       hash[:checked] << hash[:node]
       hash[:node] = hash[:path].pop
       puts hash
       dive(hash)
+
     else
+      puts "inside else: "
       hash[:checked] << hash[:node]
       hash[:path] << hash[:node]
       i = 0
@@ -30,6 +38,8 @@ module TreeTraversal
         end
       end
     end
+    puts "now res equals: #{res}"
+    return res
   end
 
 

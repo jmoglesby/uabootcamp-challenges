@@ -4,7 +4,7 @@ RSpec.describe TreeTraversal do
   # describe '.breadth_first()' do
   # end
 
-  describe 'depth_first()' do
+  describe '-- depth_first()' do
     it 'should return the deepest match' do
       class Tree
         attr_accessor :payload, :children
