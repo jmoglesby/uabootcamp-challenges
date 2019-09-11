@@ -1,0 +1,69 @@
+module TreeTraversal
+  def self.depth_first(payload, origin)
+    traversal_hash = { payload: payload, node: origin, path: [], checked: [] }
+    res = dive(traversal_hash)
+    res || 'Payload not found.'
+  end
+
+  def self.dive(hash)
+    puts hash[:payload]
+    puts hash[:node].payload
+    if hash[:payload].to_i == hash[:node].payload.to_i # this failed to return true at node 2>7>6>5
+      return hash[:node]
+    elsif hash[:node].children.count.zero? || all_children_checked(hash)
+      # climb tree
+      hash[:checked] << hash[:node]
+      hash[:node] = hash[:path].pop
+      puts hash
+      dive(hash)
+    else
+      hash[:checked] << hash[:node]
+      hash[:path] << hash[:node]
+      i = 0
+      while i < hash[:node].children.count do
+        if hash[:checked].include?(hash[:node].children[i])
+          i += 1
+        else
+          hash[:node] = hash[:node].children[i]
+          puts hash
+          dive(hash)
+        end
+      end
+    end
+  end
+
+
+  def self.all_children_checked(hash)
+    res = true
+    hash[:node].children.each do |child|
+      res = hash[:checked].include?(child)
+      if res == false
+        return res
+      end
+    end
+    return res
+  end
+end
+
+class Tree
+  attr_accessor :payload, :children
+
+  def initialize(payload, children)
+    @payload = payload
+    @children = children
+  end
+end
+
+# The "Leafs" of a tree, elements that have no children
+deep_fifth_node = Tree.new(5, [])
+eleventh_node = Tree.new(11, [])
+fourth_node   = Tree.new(4, [])
+
+# The "Branches" of the tree
+ninth_node = Tree.new(9, [fourth_node])
+sixth_node = Tree.new(6, [deep_fifth_node, eleventh_node])
+seventh_node = Tree.new(7, [sixth_node])
+shallow_fifth_node = Tree.new(5, [ninth_node])
+
+# The "Trunk" of the tree
+trunk = Tree.new(2, [seventh_node, shallow_fifth_node])
