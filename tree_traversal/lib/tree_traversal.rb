@@ -5,25 +5,17 @@ module TreeTraversal
   end
 
   def self.dive(hash)
-    res = 'nothing'
-    puts hash[:payload]
-    puts hash[:node].payload
+    res = nil
     if hash[:payload] == hash[:node].payload # this failed to return true at node 2>7>6>5
-      puts "inside if: "
       res = hash[:node]
-      puts "res equals: #{res.inspect}"
-      return res
 
     elsif hash[:node].children.count.zero? || all_children_checked(hash)
       # climb tree
-      puts "inside elsif: "
       hash[:checked] << hash[:node]
       hash[:node] = hash[:path].pop
-      puts hash[:node].inspect
-      dive(hash)
+      res = dive(hash)
 
     else
-      puts "inside else: "
       hash[:checked] << hash[:node]
       hash[:path] << hash[:node]
       i = 0
@@ -32,12 +24,12 @@ module TreeTraversal
           i += 1
         else
           hash[:node] = hash[:node].children[i]
-          dive(hash)
+          res = dive(hash)
         end
       end
     end
-    puts "now res equals: #{res.inspect}"
-    # return res
+
+    return res
   end
 
 

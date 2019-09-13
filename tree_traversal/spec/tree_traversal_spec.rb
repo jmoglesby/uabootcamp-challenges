@@ -29,7 +29,7 @@ RSpec.describe TreeTraversal do
       # The "Trunk" of the tree
       trunk = Tree.new(2, [seventh_node, shallow_fifth_node])
 
-      expect(TreeTraversal.depth_first(11, trunk)).to eq deep_fifth_node
+      expect(TreeTraversal.depth_first(5, trunk)).to eq deep_fifth_node
     end
   end
 end
