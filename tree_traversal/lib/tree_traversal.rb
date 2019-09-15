@@ -5,26 +5,33 @@ module TreeTraversal
   end
 
   def self.dive(hash)
-    res = nil
-    if hash[:payload] == hash[:node].payload # this failed to return true at node 2>7>6>5
-      res = hash[:node]
+    res = 'Payload not found.'
 
-    elsif hash[:node].children.count.zero? || all_children_checked(hash)
-      # climb tree
-      hash[:checked] << hash[:node]
-      hash[:node] = hash[:path].pop
-      res = dive(hash)
+    unless hash[:node].nil?
+      if hash[:payload] == hash[:node].payload
+        res = hash[:node]
 
-    else
-      hash[:checked] << hash[:node]
-      hash[:path] << hash[:node]
-      i = 0
-      while i < hash[:node].children.count do
-        if hash[:checked].include?(hash[:node].children[i])
-          i += 1
+      elsif hash[:node].children.count.zero? || all_children_checked(hash)
+        # climb tree
+        hash[:checked] << hash[:node]
+        if hash[:path].count.zero?
+          return res
         else
-          hash[:node] = hash[:node].children[i]
+          hash[:node] = hash[:path].pop
           res = dive(hash)
+        end
+
+      else
+        hash[:checked] << hash[:node]
+        hash[:path] << hash[:node]
+        i = 0
+        while i < hash[:node].children.count do
+          if hash[:checked].include?(hash[:node].children[i])
+            i += 1
+          else
+            hash[:node] = hash[:node].children[i]
+            res = dive(hash)
+          end
         end
       end
     end
@@ -32,6 +39,34 @@ module TreeTraversal
     return res
   end
 
+  def self.breadth_first(payload, origin)
+    traversal_hash = { payload: payload, checking: [origin], to_check: [] }
+    shallow_dive(traversal_hash)
+  end
+
+  def self.shallow_dive(hash)
+    res = 'Payload not found.'
+
+    unless hash[:checking].count.zero?
+      hash[:checking].each do |node|
+        res = hash[:payload] == node.payload ? node : nil
+      end
+
+      unless res
+        hash[:checking].each do |node|
+          node.children.each do |child|
+            hash[:to_check] << child
+          end
+        end
+        hash[:checking] = hash[:to_check]
+        hash[:to_check] = []
+
+        res = shallow_dive(hash)
+      end
+    end
+
+    return res
+  end
 
   def self.all_children_checked(hash)
     res = true
@@ -44,26 +79,3 @@ module TreeTraversal
     return res
   end
 end
-
-class Tree
-  attr_accessor :payload, :children
-
-  def initialize(payload, children)
-    @payload = payload
-    @children = children
-  end
-end
-
-# The "Leafs" of a tree, elements that have no children
-deep_fifth_node = Tree.new(5, [])
-eleventh_node = Tree.new(11, [])
-fourth_node   = Tree.new(4, [])
-
-# The "Branches" of the tree
-ninth_node = Tree.new(9, [fourth_node])
-sixth_node = Tree.new(6, [deep_fifth_node, eleventh_node])
-seventh_node = Tree.new(7, [sixth_node])
-shallow_fifth_node = Tree.new(5, [ninth_node])
-
-# The "Trunk" of the tree
-trunk = Tree.new(2, [seventh_node, shallow_fifth_node])
