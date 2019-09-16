@@ -37,7 +37,11 @@ module Fibonacci
     res
   end
 
-  def self.recursive_fib(number)
+  def self.recursive_fib1(num)
+    num <= 1 ? num : recursive_fib1(num - 1) + recursive_fib1(num - 2)
+  end
+
+  def self.recursive_fib2(number)
     fib(number, 1, 0)
   end
 
