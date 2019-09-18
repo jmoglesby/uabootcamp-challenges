@@ -2,10 +2,9 @@ module StringToInt
   def self.convert_to_int(string)
     return 'Invalid string' unless string.scan(/[:alpha:]/).empty?
 
-    res = 0
-    string = string.gsub(',', '')
-    array = string.reverse.scan(/./)
+    array = string.gsub(',', '').reverse.scan(/./)
 
+    res = 0
     multiplier = 1
     array.each do |n|
       case n
