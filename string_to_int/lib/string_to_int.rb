@@ -1,6 +1,6 @@
 module StringToInt
   def self.convert_to_int(string)
-    return 'Invalid string' unless string.scan(/[:alpha]/).empty?
+    return 'Invalid string' unless string.scan(/[:alpha:]/).empty?
 
     res = 0
     string = string.gsub(',', '')
