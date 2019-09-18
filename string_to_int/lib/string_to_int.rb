@@ -4,8 +4,7 @@ module StringToInt
 
     res = 0
     string = string.gsub(',', '')
-    string = string.reverse
-    array = string.scan(/./)
+    array = string.reverse.scan(/./)
 
     multiplier = 1
     array.each do |n|
