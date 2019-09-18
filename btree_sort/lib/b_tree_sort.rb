@@ -1,17 +1,10 @@
-class BinaryTree
-  attr_accessor :payload, :left, :right
-
-  def initialize(payload, left, right)
-    @payload = payload
-    @left = left
-    @right = right
-  end
-end
+require 'binary_tree'
 
 module BTreeSort
+
   def self.sort(array)
     res = []
-    btree_trunk = new BinaryTree(array.slice!(0), nil, nil)
+    btree_trunk = BinaryTree.new(array.slice!(0))
     btree_nodes = [btree_trunk]
 
     array.each do |item|
@@ -32,14 +25,14 @@ module BTreeSort
       if node.right
         res = add_to_btree(item, node.right)
       else
-        res = new BinaryTree(item)
+        res = BinaryTree.new(item)
         node.right = res
       end
     else
       if node.left
         res = add_to_btree(item, node.left)
       else
-        res = new BinaryTree(item)
+        res = BinaryTree.new(item)
         node.left = res
       end
     end
