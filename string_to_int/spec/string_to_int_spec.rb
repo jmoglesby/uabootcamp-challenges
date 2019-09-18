@@ -6,8 +6,8 @@ RSpec.describe StringToInt do
       expect(StringToInt.convert_to_int('4')).to eq 4
       expect(StringToInt.convert_to_int('18')).to eq 18
       expect(StringToInt.convert_to_int('640')).to eq 640
-      expect(StringToInt.convert_to_int('15,041')).to eq 15041
-      expect(StringToInt.convert_to_int('456801')).to eq 456801
+      expect(StringToInt.convert_to_int('15,041')).to eq 15_041
+      expect(StringToInt.convert_to_int('456801')).to eq 456_801
     end
 
     it 'should throw an error if passed an invalid string' do
