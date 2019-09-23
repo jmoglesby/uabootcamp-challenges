@@ -1,14 +1,12 @@
 require 'binary_tree'
 
 module BTreeSort
-
   def self.sort(array)
     res = []
     btree_trunk = BinaryTree.new(array.slice!(0))
-    btree_nodes = [btree_trunk]
 
     array.each do |item|
-      btree_nodes << add_to_btree(item, btree_trunk)
+      add_to_btree(item, btree_trunk)
     end
 
     unpack_hash = { node: btree_trunk, res: res, path: [], pushed: [] }
@@ -36,8 +34,6 @@ module BTreeSort
         node.left = res
       end
     end
-
-    return res
   end
 
   def self.unpack_btree(hash)
@@ -78,7 +74,7 @@ module BTreeSort
 
         end
 
-      elsif hash[:node].right # node has no-left / right
+      else # node has no-left / right
         if hash[:pushed].include?(hash[:node].right) # node has no-left / pushed-right
           hash[:node] = hash[:path].pop
           return unpack_btree(hash)

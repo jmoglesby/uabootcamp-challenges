@@ -13,5 +13,15 @@ RSpec.describe BTreeSort do
       array =     [5, 12, 7, 10, 2, 5, 8, 1, 13, 2, 6, 4, 9, 3, 11]
       expect(BTreeSort.sort(array)).to eq expected
     end
+
+    it 'should handle really big arrays' do
+      array = []
+      5000.times do
+        array << rand(1..5000)
+      end
+      expected = array.sort
+
+      expect(BTreeSort.sort(array)).to eq expected
+    end
   end
 end
